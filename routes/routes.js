@@ -93,6 +93,7 @@ router.post('/verify_user', koaBody(), async function(ctx, next) {
 router.post('/login', koaBody(), async function(ctx, next) {
   try {
     console.log('/login')
+    console.log(ctx.request)
     const name = ctx.request.body.name
     const password = ctx.request.body.password
     const hash = await queries.getUserPwd(name)
