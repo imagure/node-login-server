@@ -29,35 +29,6 @@ var verifyOptions = {
  algorithm:  ["HS256"]
 };
 
-
-router.all('/users', async function(ctx, next) {
-  console.log('/all')
-  ctx.body = {
-    all: 'all'
-  }
-})
-
-router.all('/login', async function(ctx, next) {
-  console.log('/all')
-  ctx.body = {
-    all: 'all'
-  }
-})
-
-router.all('/verify_user', async function(ctx, next) {
-  console.log('/all')
-  ctx.body = {
-    all: 'all'
-  }
-})
-
-router.all('/new_user', async function(ctx, next) {
-  console.log('/all')
-  ctx.body = {
-    all: 'all'
-  }
-})
-
 router.get('/users', async function(ctx, next) {
   console.log('get /')
   try {
