@@ -9,34 +9,34 @@ const fs = require('fs');
 const publicKEY  = fs.readFileSync('./public.key', 'utf8');
 const privateKEY  = fs.readFileSync('./private.key', 'utf8');
 
-const i  = 'Mysoft corp';          // Issuer 
-const s  = 'some@user.com';        // Subject 
-const a  = 'http://mysoftcorp.in'; // Audience
-
 const signOptions = {
- issuer:  i,
- subject:  s,
- audience:  a,
- expiresIn:  "12h",
+ issuer:  'FDTE',
+ subject:  'user@fdte.io',
+ audience:  'fdte.io',
+ expiresIn:  "5s",
  algorithm:  "HS256"
-};
-
-var verifyOptions = {
- issuer:  i,
- subject:  s,
- audience:  a,
- expiresIn:  "12h",
- algorithm:  ["HS256"]
 };
 
 router.get('/users', async function(ctx, next) {
   console.log('get /')
   try {
     const users = await queries.getAllUsers();
-    ctx.body = {
-      status: 'success',
-      data: users
-    };
+    console.log(ctx.request.header)
+    const token = ctx.request.header.token
+    console.log('Token:', token)
+    if (!token) {
+      return ({ status: false, message: 'No token provided.' });
+    }
+    jwt.verify(token, privateKEY, function(err, decoded) {
+      if (err) {
+        console.log('Token verification error!')
+        console.log(err)
+        ctx.body = { status: false, message: 'Failed to authenticate' };
+      } else {
+        console.log('Token verification succeded!')
+        ctx.body = { status: true, data: users};
+      }
+    })
   } catch (err) {
     console.log(err)
   }
