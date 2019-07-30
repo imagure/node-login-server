@@ -1,3 +1,6 @@
+const encryptPwd = require('../../routes/utils').encryptPwd;
+
+const hash = encryptPwd('123')
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
@@ -5,13 +8,13 @@ exports.seed = function(knex) {
   .then(() => {
     return knex('users').insert({
       name: 'Gabi',
-      password: '123'
+      password: hash
     });
   })
   .then(() => {
     return knex('users').insert({
       name: 'Ricardo',
-      password: '123'
+      password: hash
     });
   })
 };
