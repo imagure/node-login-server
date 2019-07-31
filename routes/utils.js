@@ -9,7 +9,7 @@ const signOptions = {
  issuer:  'FDTE',
  subject:  'user@fdte.io',
  audience:  'fdte.io',
- expiresIn:  "1h",
+ expiresIn:  "5s",
  algorithm:  "HS256"
 };
 
@@ -21,7 +21,7 @@ function validateUser(password, hash) {
 	return bcrypt.compareSync(password, hash[0].password)
 }
 
-async function verifyToken(header) {
+function verifyToken(header) {
   try {
     console.log('verifyToken')
     const token = header.token
